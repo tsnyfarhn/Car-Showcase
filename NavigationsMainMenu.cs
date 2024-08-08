@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Navigations : MonoBehaviour
+public class NavigationsMainMenu : MonoBehaviour
 {
+    [Header("List Cars")]
+    public List<Transform> cars = new List<Transform>();
+
+    [Header("References")]
     public Button selectCar;
 
     public string name_scene;

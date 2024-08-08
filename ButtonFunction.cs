@@ -17,7 +17,6 @@ public class ButtonFunction : MonoBehaviour
     [Header("SOUND")]
     public AudioSource engineStart;
     public AudioSource engineIdle;
-    public AudioSource engineGas;
 
     void Update()
     {
