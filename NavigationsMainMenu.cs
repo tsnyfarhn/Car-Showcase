@@ -3,45 +3,99 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class NavigationsMainMenu : MonoBehaviour
 {
     [Header("List Cars")]
-    public List<Transform> cars = new List<Transform>();
+    public List<DataCar> cars = new List<DataCar>();
 
     [Header("References")]
     public Button selectCar;
+    public Button infoBtn;
+    public Button searchBtn;
+    public Button scanBtn;
+    public Button closeBtn;
+    public TMP_InputField searchField;
 
-    public string name_scene;
+    public static List<DataCar> _cars = new List<DataCar>();
 
-    public void FixedUpdate()
+    private void Start()
     {
-        //selectCar.onClick.AddListener(GoToDetailsScene);
+        infoBtn.onClick.AddListener(OnInfoBtn);
+        closeBtn.onClick.AddListener(OnCloseBtn);
+        searchBtn.onClick.AddListener(OnSearchBtn);
+        scanBtn.onClick.AddListener(ScanBtn);
+        searchField.onValueChanged.AddListener(OnSearchFieldChanged);
+
+        cars = _cars;
     }
 
-    public void DetailsScene()
+    private void Update()
     {
-        StartCoroutine(GoToDetailsScene());
-    }
-
-    public IEnumerator GoToDetailsScene()
-    {
-        // Set the current Scene to be able to unload it later
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // The Application loads the Scene in the background at the same time as the current Scene.
-        var asyncLoad = SceneManager.LoadSceneAsync(name_scene, LoadSceneMode.Additive);
-
-        // Wait until the last operation fully loads to return anything
-        while (!asyncLoad.isDone)
+        if (Input.GetKey(KeyCode.Escape))
         {
-            yield return null;
+            foreach (var car in cars)
+            {
+                car.obj.SetActive(true);
+            }
+
+            searchField.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnInfoBtn()
+    {
+        infoBtn.gameObject.SetActive(false);
+        scanBtn.gameObject.SetActive(false);
+
+        closeBtn.gameObject.SetActive(true);
+    }
+
+    public void OnCloseBtn()
+    {
+        closeBtn.gameObject.SetActive(false);
+
+        infoBtn.gameObject.SetActive(true);
+        scanBtn.gameObject.SetActive(true);
+    }
+
+    public void OnSearchBtn() 
+    {
+        searchField.gameObject.SetActive(true);
+    }
+    public void ScanBtn() { Debug.Log("Ini Scan Button"); }
+
+    public void OnSearchFieldChanged(string searchText)
+    {
+        if (string.IsNullOrEmpty(searchText))
+        {
+            foreach (var car in cars)
+            {
+                car.obj.SetActive(true);
+            }
+            return;
         }
 
-        // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
-        //SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByName(m_Scene));
-
-        // Unload the previous Scene
-        SceneManager.UnloadSceneAsync(currentScene);
+        foreach (var car in cars)
+        {
+            if (car.brandName.ToLower().Contains(searchText.ToLower()) || car.seriesName.ToLower().Contains(searchText.ToLower()))
+            {
+                car.obj.SetActive(true);
+            }
+            else
+            {
+                car.obj.SetActive(false);
+            }
+        }
     }
+}
+
+[System.Serializable]
+public class DataCar
+{
+    public GameObject obj;
+    public Sprite image;
+    public string brandName;
+    public string seriesName;
 }
