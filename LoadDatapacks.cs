@@ -8,16 +8,7 @@ using UnityEngine.UI;
 
 public class LoadDatapacks : MonoBehaviour
 {
-    [Header("References")]
-    public Transform panelTransform;
-    public GameObject carList;
-
-    void Start()
-    {
-        LoadImages();
-    }
-
-    public void LoadImages()
+    public static List<DataCar> LoadImages(GameObject carList, Transform panelTransform)
     {
         var imageDir = @"Datapack/Images";
         var formatFiles = ".png";
@@ -26,6 +17,8 @@ public class LoadDatapacks : MonoBehaviour
 
         var bName = new List<string>();
         var sName = new List<string>();
+
+        var cars = new List<DataCar>();
 
         for (int j = 0; j < imageFiles.Length; j++)
         {
@@ -49,6 +42,7 @@ public class LoadDatapacks : MonoBehaviour
                 Sprite newSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
                 var instance = Instantiate(carList, panelTransform);
+                instance.SetActive(true);
                 var carListReferences = instance.GetComponent<CarListReferences>();
 
                 carListReferences.pictureCar.sprite = newSprite;
@@ -59,7 +53,7 @@ public class LoadDatapacks : MonoBehaviour
                 carListReferences.pictureCar.type = Image.Type.Filled;
                 carListReferences.pictureCar.preserveAspect = true;
 
-                var tes = new DataCar()
+                var dataCar = new DataCar()
                 {
                     obj = instance.gameObject,
                     image = newSprite,
@@ -67,12 +61,24 @@ public class LoadDatapacks : MonoBehaviour
                     seriesName = sName[j]
                 };
 
-                NavigationsMainMenu._cars.Add(tes);
+                cars.Add(dataCar);
             }
             else
             {
                 Debug.LogError("Image file not found at path: " + filePath);
             }
         }
+
+        return cars;
     }
+}
+
+
+[System.Serializable]
+public class DataCar
+{
+    public GameObject obj;
+    public Sprite image;
+    public string brandName;
+    public string seriesName;
 }

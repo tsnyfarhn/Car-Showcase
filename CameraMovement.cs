@@ -22,6 +22,8 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
+        cam.position = Vector3.zero;
+
         distance = Vector3.Distance(cam.position, obj.position);
     }
 

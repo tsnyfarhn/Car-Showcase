@@ -10,59 +10,104 @@ public class NavigationsMainMenu : MonoBehaviour
     [Header("List Cars")]
     public List<DataCar> cars = new List<DataCar>();
 
-    [Header("References")]
-    public Button selectCar;
+    [Header("Button")]
     public Button infoBtn;
     public Button searchBtn;
     public Button scanBtn;
-    public Button closeBtn;
+    public Button closeInfoBtn;
+    public Button closeSearchBtn;
+
+    [Header("Input Field")]
     public TMP_InputField searchField;
 
-    public static List<DataCar> _cars = new List<DataCar>();
+    [Header("Image")]
+    public Image aboutImg;
+
+    [Header("List View")]
+    public ScrollRect scroll;
+
+    [Header("References")]
+    public Transform panelTransform;
+    public GameObject carList;
+
+    private void Awake()
+    {
+        cars = LoadDatapacks.LoadImages(carList, panelTransform);
+    }
 
     private void Start()
     {
         infoBtn.onClick.AddListener(OnInfoBtn);
-        closeBtn.onClick.AddListener(OnCloseBtn);
+        closeInfoBtn.onClick.AddListener(OnCloseInfoBtn);
+        closeSearchBtn.onClick.AddListener(OnCloseSearchBtn);
         searchBtn.onClick.AddListener(OnSearchBtn);
         scanBtn.onClick.AddListener(ScanBtn);
         searchField.onValueChanged.AddListener(OnSearchFieldChanged);
-
-        cars = _cars;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            foreach (var car in cars)
-            {
-                car.obj.SetActive(true);
-            }
-
-            searchField.gameObject.SetActive(false);
-        }
     }
 
     public void OnInfoBtn()
     {
         infoBtn.gameObject.SetActive(false);
         scanBtn.gameObject.SetActive(false);
+        searchBtn.gameObject.SetActive(false);
+        searchField.gameObject.SetActive(false);
+        closeSearchBtn.gameObject.SetActive(false);
 
-        closeBtn.gameObject.SetActive(true);
+        aboutImg.gameObject.SetActive(true);
+        closeInfoBtn.gameObject.SetActive(true);
+
+        foreach (var car in cars)
+        {
+            car.obj.SetActive(false);
+        }
     }
 
-    public void OnCloseBtn()
+    public void OnCloseInfoBtn()
     {
-        closeBtn.gameObject.SetActive(false);
+        closeInfoBtn.gameObject.SetActive(false);
+        aboutImg.gameObject.SetActive(false);
 
         infoBtn.gameObject.SetActive(true);
         scanBtn.gameObject.SetActive(true);
+        searchBtn.gameObject.SetActive(true);
+
+        foreach (var car in cars)
+        {
+            car.obj.SetActive(true);
+        }
+    }
+
+    public void OnCloseSearchBtn()
+    {
+        closeSearchBtn.gameObject.SetActive(false);
+        searchField.gameObject.SetActive(false);
+
+        searchBtn.gameObject.SetActive(true);
+
+        foreach (var car in cars)
+        {
+            car.obj.SetActive(true);
+        }
+
+        var tes = scroll.viewport;
+        tes.sizeDelta = new Vector2(1080f, 1293.8f);
+
+        var tos = scroll.content.GetComponent<LayoutGroup>();
+        tos.padding.top = 68;
     }
 
     public void OnSearchBtn() 
     {
+        searchBtn.gameObject.SetActive(false);
+
         searchField.gameObject.SetActive(true);
+        closeSearchBtn.gameObject.SetActive(true);
+
+        var tes = scroll.viewport;
+        tes.sizeDelta = new Vector2(1080f, 1093.8f);
+
+        var tos = scroll.content.GetComponent<LayoutGroup>();
+        tos.padding.top = -85;
     }
     public void ScanBtn() { Debug.Log("Ini Scan Button"); }
 
@@ -89,13 +134,4 @@ public class NavigationsMainMenu : MonoBehaviour
             }
         }
     }
-}
-
-[System.Serializable]
-public class DataCar
-{
-    public GameObject obj;
-    public Sprite image;
-    public string brandName;
-    public string seriesName;
 }
