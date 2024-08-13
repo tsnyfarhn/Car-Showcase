@@ -90,10 +90,10 @@ public class NavigationsMainMenu : MonoBehaviour
         }
 
         var tes = scroll.viewport;
-        tes.sizeDelta = new Vector2(1080f, 1293.8f);
+        tes.sizeDelta = new Vector2(1080f, 1519f);
 
         var tos = scroll.content.GetComponent<LayoutGroup>();
-        tos.padding.top = 68;
+        tos.padding.top = -68;
     }
 
     public void OnSearchBtn() 
@@ -104,10 +104,10 @@ public class NavigationsMainMenu : MonoBehaviour
         closeSearchBtn.gameObject.SetActive(true);
 
         var tes = scroll.viewport;
-        tes.sizeDelta = new Vector2(1080f, 1093.8f);
+        tes.sizeDelta = new Vector2(1080f, 1319f);
 
         var tos = scroll.content.GetComponent<LayoutGroup>();
-        tos.padding.top = -85;
+        tos.padding.top = 0;
     }
     public void ScanBtn() { Debug.Log("Ini Scan Button"); }
 
