@@ -24,9 +24,11 @@ public class Navigations3DMode : MonoBehaviour
     public Button mediumBtn;
     public Button lowBtn;
 
-    [Header("VARIANT BUTTON")]
+    [Header("VARIANT REFFERENCES")]
     public Button variant1Btn;
     public Button variant2Btn;
+    public Material defaultVariant;
+    public Material raceVariant;
 
     [Header("CAMERA BUTTON")]
     public Button camera1Btn;
@@ -51,6 +53,11 @@ public class Navigations3DMode : MonoBehaviour
         qualityBtn.onClick.AddListener(OnQualityButton);
         variantBtn.onClick.AddListener(OnVariantButton);
         cameraBtn.onClick.AddListener(OnCameraButton);
+        camera1Btn.onClick.AddListener(OnChangeCamera1);
+        camera2Btn.onClick.AddListener(OnChangeCamera2);
+        camera3Btn.onClick.AddListener(OnChangeCamera3);
+        variant2Btn.onClick.AddListener(OnChangeVariant2);
+        variant1Btn.onClick.AddListener(OnChangeVariant1);
     }
 
     void Update()
@@ -101,19 +108,76 @@ public class Navigations3DMode : MonoBehaviour
 
     private void OnQualityButton()
     {
-        if (!panelQuality.gameObject.activeInHierarchy) panelQuality.gameObject.SetActive(true);
+        if (!panelQuality.gameObject.activeInHierarchy)
+        {
+            panelQuality.gameObject.SetActive(true);
+
+            panelCamera.gameObject.SetActive(false);
+            panelVartiant.gameObject.SetActive(false);
+        }
         else if (panelQuality.gameObject.activeInHierarchy) panelQuality.gameObject.SetActive(false);
     }
 
     private void OnVariantButton()
     {
-        if (!panelVartiant.gameObject.activeInHierarchy) panelVartiant.gameObject.SetActive(true);
+        if (!panelVartiant.gameObject.activeInHierarchy)
+        {
+            panelVartiant.gameObject.SetActive(true);
+
+            panelQuality.gameObject.SetActive(false);
+            panelCamera.gameObject.SetActive(false);
+        }
         else if (panelVartiant.gameObject.activeInHierarchy) panelVartiant.gameObject.SetActive(false);
     }
 
     private void OnCameraButton()
     {
-        if (!panelCamera.gameObject.activeInHierarchy) panelCamera.gameObject.SetActive(true);
+        if (!panelCamera.gameObject.activeInHierarchy) 
+        {
+            panelCamera.gameObject.SetActive(true);
+
+            panelQuality.gameObject.SetActive(false);
+            panelVartiant.gameObject.SetActive(false);
+        } 
         else if (panelCamera.gameObject.activeInHierarchy) panelCamera.gameObject.SetActive(false);
+    }
+
+    private void OnChangeCamera1()
+    {
+        CameraMovement._tireCam.gameObject.SetActive(false);
+        CameraMovement._frontCam.gameObject.SetActive(false);
+
+        CameraMovement._mainCam.gameObject.SetActive(true);
+        CameraMovement.isMainCam = true;
+    }
+
+    private void OnChangeCamera2()
+    {
+        CameraMovement._mainCam.gameObject.SetActive(false);
+        CameraMovement._frontCam.gameObject.SetActive(false);
+
+        CameraMovement._tireCam.gameObject.SetActive(true);
+        CameraMovement.isMainCam = false;
+    }
+
+    private void OnChangeCamera3()
+    {
+        CameraMovement._mainCam.gameObject.SetActive(false);
+        CameraMovement._tireCam.gameObject.SetActive(false);
+
+        CameraMovement._frontCam.gameObject.SetActive(true);
+        CameraMovement.isMainCam = false;
+    }
+
+    private void OnChangeVariant1()
+    {
+        var mat = CameraMovement._obj.transform.Find("sport_car_1_body").gameObject.GetComponent<MeshRenderer>();
+        mat.materials[2].mainTexture = raceVariant.mainTexture;
+    }
+
+    private void OnChangeVariant2()
+    {
+        var mat = CameraMovement._obj.transform.Find("sport_car_1_body").gameObject.GetComponent<MeshRenderer>();
+        mat.materials[2].mainTexture = defaultVariant.mainTexture;
     }
 }

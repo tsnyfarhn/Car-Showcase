@@ -5,7 +5,9 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [Header("CAMERA")]
-    public Transform cam;
+    public Transform mainCam;
+    public Transform tireCam;
+    public Transform frontCam;
 
     [Header("OBJECT")]
     public Transform obj;
@@ -19,20 +21,34 @@ public class CameraMovement : MonoBehaviour
 
     Vector3 LocalRot;
     float distance;
+    public static bool isMainCam = true;
+
+    public static Transform _mainCam;
+    public static Transform _tireCam;
+    public static Transform _frontCam;
+    public static GameObject _obj;
 
     void Start()
     {
-        cam.position = Vector3.zero;
+        _mainCam = mainCam;
+        _tireCam = tireCam;
+        _frontCam = frontCam;
+        _obj = obj.gameObject;
 
-        distance = Vector3.Distance(cam.position, obj.position);
+        mainCam.position = Vector3.zero;
+
+        distance = Vector3.Distance(mainCam.position, obj.position);
     }
 
     void Update()
     {
-        cam.position = obj.position - cam.forward * distance;
+        if (isMainCam)
+        {
+            mainCam.position = obj.position - mainCam.forward * distance;
 
-        Rotation();
-        Zoom();
+            Rotation();
+            Zoom();
+        }
     }
 
     void Rotation()
@@ -46,7 +62,7 @@ public class CameraMovement : MonoBehaviour
         }
 
         var Qt = Quaternion.Euler(LocalRot.x, LocalRot.y, 0f);
-        cam.rotation = Quaternion.Lerp(cam.rotation, Qt, Time.deltaTime * orbitDamping);
+        mainCam.rotation = Quaternion.Lerp(mainCam.rotation, Qt, Time.deltaTime * orbitDamping);
     }
 
     void Zoom()
