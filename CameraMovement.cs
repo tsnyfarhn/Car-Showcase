@@ -67,7 +67,29 @@ public class CameraMovement : MonoBehaviour
 
     void Zoom()
     {
-        distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        //distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        //distance = Mathf.Clamp(distance, minDistance, maxDistance);
+
+        if (Input.touchCount == 2)
+        {
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+
+            float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+            distance += deltaMagnitudeDiff * scrollSpeed * Time.deltaTime;
+        }
+        else
+        {
+            distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        }
+
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
     }
 }

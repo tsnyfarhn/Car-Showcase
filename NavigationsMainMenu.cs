@@ -13,7 +13,7 @@ public class NavigationsMainMenu : MonoBehaviour
     [Header("Button")]
     public Button infoBtn;
     public Button searchBtn;
-    public Button scanBtn;
+    //public Button scanBtn;
     public Button closeInfoBtn;
     public Button closeSearchBtn;
 
@@ -25,6 +25,7 @@ public class NavigationsMainMenu : MonoBehaviour
 
     [Header("List View")]
     public ScrollRect scroll;
+    public RectTransform panel;
 
     [Header("References")]
     public Transform panelTransform;
@@ -32,7 +33,8 @@ public class NavigationsMainMenu : MonoBehaviour
 
     private void Awake()
     {
-        cars = LoadDatapacks.LoadImages(carList, panelTransform);
+        //cars = LoadDatapacks.LoadImages(carList, panelTransform);
+        scroll.gameObject.SetActive(true);
     }
 
     private void Start()
@@ -41,14 +43,14 @@ public class NavigationsMainMenu : MonoBehaviour
         closeInfoBtn.onClick.AddListener(OnCloseInfoBtn);
         closeSearchBtn.onClick.AddListener(OnCloseSearchBtn);
         searchBtn.onClick.AddListener(OnSearchBtn);
-        scanBtn.onClick.AddListener(ScanBtn);
+        //scanBtn.onClick.AddListener(ScanBtn);
         searchField.onValueChanged.AddListener(OnSearchFieldChanged);
     }
 
     public void OnInfoBtn()
     {
         infoBtn.gameObject.SetActive(false);
-        scanBtn.gameObject.SetActive(false);
+        //scanBtn.gameObject.SetActive(false);
         searchBtn.gameObject.SetActive(false);
         searchField.gameObject.SetActive(false);
         closeSearchBtn.gameObject.SetActive(false);
@@ -68,7 +70,7 @@ public class NavigationsMainMenu : MonoBehaviour
         aboutImg.gameObject.SetActive(false);
 
         infoBtn.gameObject.SetActive(true);
-        scanBtn.gameObject.SetActive(true);
+        //scanBtn.gameObject.SetActive(true);
         searchBtn.gameObject.SetActive(true);
 
         foreach (var car in cars)
@@ -89,11 +91,14 @@ public class NavigationsMainMenu : MonoBehaviour
             car.obj.SetActive(true);
         }
 
+        panel.anchoredPosition = new Vector2(0, -1318f);
+        panel.sizeDelta = new Vector2(1080, 1703f);
+
         var tes = scroll.viewport;
-        tes.sizeDelta = new Vector2(1080f, 1519f);
+        tes.sizeDelta = new Vector2(1080f, 1703f);
 
         var tos = scroll.content.GetComponent<LayoutGroup>();
-        tos.padding.top = -68;
+        tos.padding.top = 0;
     }
 
     public void OnSearchBtn() 
@@ -103,13 +108,16 @@ public class NavigationsMainMenu : MonoBehaviour
         searchField.gameObject.SetActive(true);
         closeSearchBtn.gameObject.SetActive(true);
 
+        panel.anchoredPosition = new Vector2(0, -1249.8f);
+        panel.sizeDelta = new Vector2(1080, 1839.5f);
+
         var tes = scroll.viewport;
-        tes.sizeDelta = new Vector2(1080f, 1319f);
+        tes.sizeDelta = new Vector2(1080f, 1639.5f);
 
         var tos = scroll.content.GetComponent<LayoutGroup>();
         tos.padding.top = 0;
     }
-    public void ScanBtn() { Debug.Log("Ini Scan Button"); }
+    //public void ScanBtn() { Debug.Log("Ini Scan Button"); }
 
     public void OnSearchFieldChanged(string searchText)
     {

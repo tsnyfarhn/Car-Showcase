@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 public class Navigations3DMode : MonoBehaviour
 {
@@ -19,7 +21,7 @@ public class Navigations3DMode : MonoBehaviour
     public Button variantBtn;
     public Button cameraBtn;
 
-    [Header("QUALITY BUTTON")]
+    [Header("QUALITY REFFERENCES")]
     public Button highBtn;
     public Button mediumBtn;
     public Button lowBtn;
@@ -30,7 +32,7 @@ public class Navigations3DMode : MonoBehaviour
     public Material defaultVariant;
     public Material raceVariant;
 
-    [Header("CAMERA BUTTON")]
+    [Header("CAMERA REFFERENCES")]
     public Button camera1Btn;
     public Button camera2Btn;
     public Button camera3Btn;
@@ -58,6 +60,9 @@ public class Navigations3DMode : MonoBehaviour
         camera3Btn.onClick.AddListener(OnChangeCamera3);
         variant2Btn.onClick.AddListener(OnChangeVariant2);
         variant1Btn.onClick.AddListener(OnChangeVariant1);
+        highBtn.onClick.AddListener(HighQuality);
+        mediumBtn.onClick.AddListener(MediumQuality);
+        lowBtn.onClick.AddListener(LowQuality);
     }
 
     void Update()
@@ -82,8 +87,6 @@ public class Navigations3DMode : MonoBehaviour
 
     private void OnBackButton()
     {
-        Debug.Log("Balik ke scene sebelumnya");
-
         SceneManager.LoadScene("Detail Scene", LoadSceneMode.Single);
     }
 
@@ -116,6 +119,21 @@ public class Navigations3DMode : MonoBehaviour
             panelVartiant.gameObject.SetActive(false);
         }
         else if (panelQuality.gameObject.activeInHierarchy) panelQuality.gameObject.SetActive(false);
+    }
+
+    private void HighQuality()
+    {
+        QualitySettings.SetQualityLevel(2);
+    }
+
+    private void MediumQuality()
+    {
+        QualitySettings.SetQualityLevel(1);
+    }
+
+    private void LowQuality()
+    {
+        QualitySettings.SetQualityLevel(0);
     }
 
     private void OnVariantButton()
