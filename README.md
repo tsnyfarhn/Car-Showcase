@@ -18,3 +18,12 @@ Detail screen can see description and specification about the car.
 
 ### Rotation Camera
 <img src="https://github.com/user-attachments/assets/c1cbecd8-9d9d-4db9-8065-edbcbcb3a66d" width="230" />
+
+### Change Graphics
+<img src="https://github.com/user-attachments/assets/3e42dc98-f5f1-4531-ad1c-52be9db87c27" width="230" />
+
+### Change Colors
+<img src="https://github.com/user-attachments/assets/1e492f62-9ac7-433e-b134-cf4065c44bd8" width="230" />
+
+### Change Camera
+<img src="https://github.com/user-attachments/assets/8a5eae8d-98df-4ac9-be44-8daafc580a4c" width="230" />
