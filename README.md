@@ -30,3 +30,7 @@ Detail screen can see description and specification about the car.
 
 ### Change Camera
 <img src="https://github.com/user-attachments/assets/8a5eae8d-98df-4ac9-be44-8daafc580a4c" width="230" />
+
+## ##NOTES##
+Car Object : https://assetstore.unity.com/packages/3d/vehicles/land/80-s-sport-car-1-69324
+Engine Sound : https://youtu.be/rJoAcMUKuI0
