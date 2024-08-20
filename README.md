@@ -14,10 +14,13 @@ Detail screen can see description and specification about the car.
 <img src="https://github.com/user-attachments/assets/b04d43fd-feaa-4ce8-9cfe-eae2daea1be4" width="230" height="500" />
 
 ## 3D Mode
-3D Mode screen is interactive 3D Car object. Car can change the color, change quality graphics, and change camera prespective.
+3D Mode screen is interactive 3D Car object. Car can check the engine sound, change the color, change quality graphics, and change camera prespective.
 
 ### Rotation Camera
 <img src="https://github.com/user-attachments/assets/c1cbecd8-9d9d-4db9-8065-edbcbcb3a66d" width="230" />
+
+### Engine Sound
+<img src="https://github.com/user-attachments/assets/ad2655af-ce33-473a-bdc5-da69820c1286" width="230" />
 
 ### Change Graphics
 <img src="https://github.com/user-attachments/assets/3e42dc98-f5f1-4531-ad1c-52be9db87c27" width="230" />
