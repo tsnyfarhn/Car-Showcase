@@ -16,4 +16,4 @@ Detail screen can see description and specification about the car.
 ## 3D Mode
 3D Mode screen
 
-<img src="https://github.com/user-attachments/assets/b8492b3f-159f-4853-ac32-5e6268fbda3b.gif" width="230" height="500" />
+<img src="https://github.com/user-attachments/assets/c1cbecd8-9d9d-4db9-8065-edbcbcb3a66d.gif" width="200" />
